@@ -17,11 +17,11 @@ class CreateToDoTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('Title');
-            $table->text('Description');
-            $table->char('Priority');
-            $table->date('Deadline');
-            $table->date('Completed')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->char('priority');
+            $table->date('deadline');
+            $table->date('completed')->nullable();
             $table->char('status')->default('no');
         });
     }

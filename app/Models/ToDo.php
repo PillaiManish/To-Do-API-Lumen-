@@ -11,7 +11,7 @@ use Laravel\Lumen\Auth\Authorizable;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
+class ToDo extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
 
@@ -21,7 +21,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'user_id', 'title', 'description', 'priority', 'deadline', 'completed', 'status'
     ];
 
     /**
@@ -30,24 +30,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password'
+        'user_id'
     ];
 
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-   /**
-    * Return a key value array, containing any custom claims to be added to the JWT.
-    *
-    * @return array
-    */
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
+ 
 }

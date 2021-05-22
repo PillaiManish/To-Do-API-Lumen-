@@ -16,3 +16,16 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post('login','AccountController@login');
+$router->post('register','AccountController@register');
+$router->post('register','AccountController@register');
+$router->post('logout','AccountController@logout');
+
+$router->group(['prefix' => 'todo'], function () use ($router) {
+    $router->post('/','ToDoController@list');
+    $router->post('add','ToDoController@add');
+    $router->delete('delete','ToDoController@delete');
+});
+
+
