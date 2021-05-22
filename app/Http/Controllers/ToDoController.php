@@ -50,5 +50,22 @@ class ToDoController extends Controller
         ]);
     }
 
-    
+    public function delete(Request $request, $id){
+        $todo   = ToDo::find($id);
+
+        if (! $todo->user() == auth()->user){
+            return response()->json([
+                'status'    => 'Error',
+                'message'   => 'Sorry, you cannot delete it, as you are not the owner'   
+            ],401);
+        }
+
+        $todo->delete();
+        return response()->json([
+            'status'    => 'Success',
+            'message'   => 'The To Do has been deleted' 
+        ],200);
+    }
+
+
 }

@@ -65,23 +65,7 @@ class AccountController extends Controller
         ],200);
     }
 
-    public function delete(Request $request, $id){
-        $todo   = ToDo::find($id);
-
-        if (! $todo->user() == auth()->user){
-            return response()->json([
-                'status' => 'Error',
-                'message' => 'Sorry, you cannot delete it, as you are not the owner'   
-            ],401);
-        }
-
-        $todo->delete();
-        return response()->json([
-            'status' => 'Success',
-            'message' => 'The To Do has been deleted' 
-        ],200);
-    }
-
+ 
     public function logout(Request $request){
         auth()->logout();
 
@@ -89,5 +73,14 @@ class AccountController extends Controller
             'status'    => 'Success',
             'message'   => 'You have been successfully logout'
         ],200);
+    }
+
+    public function delete(Request $request){
+        User::find(auth()->user)->delete();
+
+        return response()->json([
+            'status'    => 'Success',
+            'message'   => 'Your account has been successfully deleted'
+        ], 200);        
     }
 }

@@ -19,8 +19,9 @@ $router->get('/', function () use ($router) {
 
 $router->post('login','AccountController@login');
 $router->post('register','AccountController@register');
-$router->post('register','AccountController@register');
 $router->post('logout','AccountController@logout');
+$router->delete('delete','AccountController@delete');
+
 
 $router->group(['prefix' => 'todo'], function () use ($router) {
     $router->post('/','ToDoController@list');
