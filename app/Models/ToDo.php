@@ -19,6 +19,9 @@ class ToDo extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array
      */
+
+    protected $table = 'todos';
+
     protected $fillable = [
         'user_id', 'title', 'description', 'priority', 'deadline', 'completed', 'status'
     ];
