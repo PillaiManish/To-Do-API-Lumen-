@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
+use Validator;
 use App\Models\ToDo;
+
 
 class ToDoController extends Controller
 {
@@ -65,6 +68,40 @@ class ToDoController extends Controller
             'status'    => 'Success',
             'message'   => 'The To Do has been deleted' 
         ],200);
+    }
+
+    public function update(Request $request, $id){
+        $input = Validator::make($request->all(),[
+            'completed'     => 'required',
+            'status'        => 'required'
+        ]);
+
+        if ($input->fails()){
+            return response()->json([
+                'status' => 'Error',
+                'message'=> 'Please check if input are correct'
+            ],401);
+        }
+        
+        $todo   = ToDo::find($id);
+        
+        if (! $todo->user() == auth()->user){
+            return response()->json([
+                'status'    => 'Error',
+                'message'   => 'Sorry, you cannot delete it, as you are not the owner'   
+            ],401);
+        }
+
+        $todo->status    = $request->status;
+        $todo->completed = $request->completed;
+        $todo->save();
+
+
+        return response()->json([
+            'status'    => 'Success',
+            'message'   => 'The status has been updated' 
+        ],200);
+
     }
 
 
